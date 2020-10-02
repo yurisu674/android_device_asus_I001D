@@ -5,15 +5,15 @@ It was released in September 2019.
 
 ## Compile
 
-First download minimal omni-9.0 tree:
+First download minimal AOSP android-11 tree:
 
 ```
-repo init -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-9.0
+repo init -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
 ```
 Then add this project to a new local manifest (.repo/local_manifests/<your-file-name.xml>:
 
 ```xml
-<project name="android_device_asus_I001D" path="device/asus/I001D" remote="TeamWin" revision="android-9.0" />
+<project name="android_device_asus_I001D" path="device/asus/I001D" remote="TeamWin" revision="android-11" />
 ```
 
 Now you can sync your source:
