@@ -63,10 +63,15 @@ BOARD_KERNEL_CMDLINE := \
     service_locator.enable=1 \
     swiotlb=2048 \
     video=vfb:640x400,bpp=32,memsize=3072000
+BOARD_BOOT_HEADER_VERSION := 2
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+BOARD_KERNEL_IMAGE_NAME := Image.gz
+BOARD_DTB_IMAGE_NAME := dtb.img
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/$(BOARD_KERNEL_IMAGE_NAME)
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/$(BOARD_DTB_IMAGE_NAME)
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 
 # Platform
 TARGET_BOARD_PLATFORM := $(TARGET_BOOTLOADER_BOARD_NAME)
@@ -108,6 +113,7 @@ VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 BOARD_SUPPRESS_SECURE_ERASE := true
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -142,6 +148,7 @@ TW_INCLUDE_RESETPROP := true
 AB_OTA_UPDATER := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_MAX_BRIGHTNESS := 255
+TW_NO_EXFAT_FUSE := true
 TW_DEFAULT_BRIGHTNESS := 120
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_THEME := portrait_hdpi
@@ -151,6 +158,7 @@ TW_HAS_EDL_MODE := true
 TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
 TW_HAPTICS_TSPDRV := true
+TW_LOAD_VENDOR_MODULES := "texfat.ko tntfs.ko"
 
 # TWRP Debug Flags
 TARGET_USES_LOGD := true
