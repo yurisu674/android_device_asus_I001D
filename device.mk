@@ -1,3 +1,7 @@
+# Inherit from common AOSP config
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
+
 # A/B support
 AB_OTA_UPDATER := true
 
@@ -24,9 +28,6 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
-
-# Api
-PRODUCT_SHIPPING_API_LEVEL := 28
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
