@@ -23,8 +23,6 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-# Default device path
-DEVICE_PATH := device/$(PRODUCT_BRAND)/$(TARGET_DEVICE)
 
 # Architecture
 TARGET_ARCH := arm64
@@ -120,6 +118,7 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_USES_RECOVERY_AS_BOOT := true
 TARGET_NO_RECOVERY := true
+TARGET_OTA_ASSERT_DEVICE := I001D
 TARGET_RECOVERY_DEVICE_MODULES += \
     libandroidicu \
     libcap \
@@ -129,7 +128,6 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libcap.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so
-
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 
@@ -160,6 +158,12 @@ TW_OVERRIDE_SYSTEM_PROPS := \
 TW_HAPTICS_TSPDRV := true
 TW_LOAD_VENDOR_MODULES := "texfat.ko tntfs.ko"
 
+# TWRP zip installer
+ifneq ($(wildcard bootable/recovery/installer/.),)
+    USE_RECOVERY_INSTALLER := true
+    RECOVERY_INSTALLER_PATH := bootable/recovery/installer
+endif
+
 # TWRP Debug Flags
 TARGET_USES_LOGD := true
 TWRP_INCLUDE_LOGCAT := true
@@ -170,3 +174,18 @@ RECOVERY_BINARY_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/strace
 #TARGET_RECOVERY_DEVICE_MODULES += twrpdec
 #RECOVERY_BINARY_SOURCE_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/twrpdec
 #TWRP_EVENT_LOGGING := true
+
+# Custom TWRP Versioning
+ifneq ($(wildcard device/common/version-info/.),)
+    # device version is optional - the default value is "0" if nothing is set in device tree
+    CUSTOM_TWRP_DEVICE_VERSION := 0
+    # version prefix is optional - the default value is "LOCAL" if nothing is set in device tree
+    CUSTOM_TWRP_VERSION_PREFIX := CPTB
+
+    include device/common/version-info/custom_twrp_version.mk
+
+    ifeq ($(CUSTOM_TWRP_VERSION),)
+        CUSTOM_TWRP_VERSION := $(shell date +%Y%m%d)-01
+    endif
+endif
+

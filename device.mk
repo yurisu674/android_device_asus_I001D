@@ -1,3 +1,7 @@
+# Inherit from common AOSP config
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
+
 # A/B support
 AB_OTA_UPDATER := true
 
@@ -25,9 +29,6 @@ AB_OTA_POSTINSTALL_CONFIG += \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
 
-# Api
-PRODUCT_SHIPPING_API_LEVEL := 28
-
 # Boot control HAL
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl.recovery \
@@ -39,8 +40,8 @@ PRODUCT_COPY_FILES += \
 
 # Copy modules for depmod
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/root/vendor/lib/modules/1.1/texfat.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/texfat.ko \
-    $(LOCAL_PATH)/recovery/root/vendor/lib/modules/1.1/tntfs.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/tntfs.ko
+    $(DEVICE_PATH)/recovery/root/vendor/lib/modules/1.1/texfat.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/texfat.ko \
+    $(DEVICE_PATH)/recovery/root/vendor/lib/modules/1.1/tntfs.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/tntfs.ko
 
 # HIDL
 PRODUCT_PACKAGES += \
@@ -54,11 +55,11 @@ PRODUCT_PACKAGES += \
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
+    $(DEVICE_PATH)
 
 # Include OEM keys for zip signature verification
 PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(LOCAL_PATH)/security/$(BOARD_VENDOR)1 \
-    $(LOCAL_PATH)/security/$(BOARD_VENDOR)2 \
-    $(LOCAL_PATH)/security/$(BOARD_VENDOR)3 \
-    $(LOCAL_PATH)/security/$(BOARD_VENDOR)4
+    $(DEVICE_PATH)/security/$(BOARD_VENDOR)1 \
+    $(DEVICE_PATH)/security/$(BOARD_VENDOR)2 \
+    $(DEVICE_PATH)/security/$(BOARD_VENDOR)3 \
+    $(DEVICE_PATH)/security/$(BOARD_VENDOR)4
