@@ -40,8 +40,7 @@ PRODUCT_COPY_FILES += \
 
 # Copy modules for depmod
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/recovery/root/vendor/lib/modules/1.1/texfat.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/texfat.ko \
-    $(DEVICE_PATH)/recovery/root/vendor/lib/modules/1.1/tntfs.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/tntfs.ko
+    $(call find-copy-subdir-files,*.ko,$(DEVICE_PATH)/recovery/root/vendor/lib/modules,$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules)
 
 # HIDL
 PRODUCT_PACKAGES += \
