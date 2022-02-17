@@ -1,4 +1,5 @@
 # mount point    fstype    device                device2               flags
+/metadata        ext4     /dev/block/bootdevice/by-name/metadata       flags=display=Metadata
 /boot            emmc     /dev/block/bootdevice/by-name/boot           flags=slotselect
 /system_root     ext4     /dev/block/bootdevice/by-name/system         flags=slotselect;backup=0
 /system_image    emmc     /dev/block/bootdevice/by-name/system         flags=slotselect
