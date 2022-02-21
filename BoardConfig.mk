@@ -121,21 +121,11 @@ TARGET_NO_RECOVERY := true
 TARGET_OTA_ASSERT_DEVICE := I001D
 TARGET_RECOVERY_DEVICE_MODULES += \
     libandroidicu \
-    libcap \
-    libdisplayconfig.qti \
     libion \
-    libxml2 \
-    vendor.display.config@1.0 \
-    vendor.display.config@2.0 \
-    vendor.qti.hardware.tui_comm@1.0
+    libxml2
 RECOVERY_LIBRARY_SOURCE_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libcap.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.qti.hardware.tui_comm@1.0.so
+    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 
@@ -164,7 +154,7 @@ TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
 TW_HAPTICS_TSPDRV := true
 TW_LOAD_VENDOR_MODULES := "texfat.ko tntfs.ko"
-
+TW_USE_FSCRYPT_POLICY := 1
 
 # TWRP Debug Flags
 TARGET_USES_LOGD := true
