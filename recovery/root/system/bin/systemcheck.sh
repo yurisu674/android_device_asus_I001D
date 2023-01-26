@@ -185,8 +185,7 @@ if [ -f "$TEMPSYS/$BUILDPROP" ]; then
 	flavor=$(grep -i 'ro.build.flavor=' "$TEMPSYS/$BUILDPROP"  | cut -f2 -d'=' -s)
 	unmount_system
 	log_print 2 "Current system flavor: $flavor"
-	decrypt_rc="/init.recovery.qcom_decrypt.rc"
-	decrypt_fbe_rc="init.recovery.qcom_decrypt.fbe.rc"
+	decrypt_rc="/init.recovery.qcom.rc"
 	recovery_fstab="/etc/recovery.fstab"
 	if [[ "$flavor" == bliss* ]] || [[ "$flavor" == voltage* ]]; then
 		sed -i 's/,inlinecrypt//' "$recovery_fstab"
